@@ -17,9 +17,6 @@ export default function RootLayout() {
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
 
-
-
-
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
@@ -30,11 +27,18 @@ export default function RootLayout() {
     return null;
   }
 
+  //root layout / root file (outermost)
+  //each jsx file in /app becomes a route.[2 uses: navigator group / dynamic routing(url params)]
+  //folders group related screens or navigators 
+  //3 types of navigators: stack (push,pop / traditional), tab navigator(bottom bar like this app), drawer (side menu)
+
+
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <></>
       <Stack>
-        <Stack.Screen name="out" options={{ headerShown: false }} />
+        {/* you can add other routes here, but folders take presendence, espeicllay with an index.jsx
+        also you need to add indiv files before (tabs) or other grps.. u can acces them but grps will visually load first*/}
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
