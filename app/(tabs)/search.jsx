@@ -1,29 +1,23 @@
 import React, { useState } from 'react';
 import { useRouter } from 'expo-router';
-import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, Alert, FlatList } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, FlatList, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-// import { Header } from '@/components/ui/Header';
-
+import { useMessages } from '../context/MessagesContext';
 
 const SearchScreen = () => {
+  const router = useRouter();
+  const { addToMessages } = useMessages();
 
-  const [messages, setMessages] = useState([]);
-
-  const router = useRouter()
   const [caregivers, setCaregivers] = useState([
     { id: '1', name: 'Alice Johnson', specialty: 'Nurse', image: 'https://randomuser.me/api/portraits/women/1.jpg' },
     { id: '2', name: 'Mark Smith', specialty: 'Physical Therapist', image: 'https://randomuser.me/api/portraits/men/2.jpg' },
     { id: '3', name: 'Sophia Lee', specialty: 'Caregiver', image: 'https://randomuser.me/api/portraits/women/3.jpg' },
-    { id: '4', name: 'John Doe', specialty: 'Senior Care Specialist', image: 'https://randomuser.me/api/portraits/men/4.jpg' },
+    { id: '4', name: 'John Doe', specialty: 'Senior Care Specialist', image: 'https://randomuser.me/api/portraits/men/4.jpg' }
   ]);
 
-  const addToMessages = (caregiver) => {
-    if (!messages.find(msg => msg.id === caregiver.id)) {
-      setMessages((prev) => [...prev, caregiver]);
-      Alert.alert('Added to Messages', `${caregiver.name} has been added.`);
-    } else {
-      Alert.alert('Already Added', `${caregiver.name} is already in your messages.`);
-    }
+  const handleAddToMessages = (caregiver) => {
+    addToMessages(caregiver);
+    Alert.alert('Added to Messages', `${caregiver.name} has been added.`);
   };
 
   const renderCaregiver = ({ item }) => (
@@ -34,7 +28,7 @@ const SearchScreen = () => {
         <Text style={styles.specialty}>{item.specialty}</Text>
         <TouchableOpacity
           style={styles.addButton}
-          onPress={() => addToMessages(item)}
+          onPress={() => handleAddToMessages(item)}
         >
           <Text style={styles.addButtonText}>Add to Messages</Text>
         </TouchableOpacity>
@@ -42,42 +36,32 @@ const SearchScreen = () => {
     </View>
   );
 
-
-  //like react, you can only return one parent view / div / component / etc
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        {/* Back Button */}
         <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
           <Ionicons name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
-        {/* Logo */}
+
         <View style={styles.logoContainer}>
-          <Image
-            source={require('@/assets/images/favicon.png')}  // Replace with your logo path
-            style={styles.logo}
-          />
+          <Image source={require('@/assets/images/favicon.png')} style={styles.logo} />
           <Text style={styles.title}>Carelink</Text>
         </View>
-        {/* Menu Icon */}
+
         <TouchableOpacity onPress={() => console.log("Menu clicked")} style={styles.menuButton}>
-          <Ionicons name="arrow-back" size={24} color="black" />
+          <Ionicons name="menu" size={24} color="black" />
         </TouchableOpacity>
       </View>
-      {/*                                 Header end                                    */}
 
       <ImageBackground source={require('../../assets/images/bg2.png')} resizeMode="cover" style={styles.background}>
-
-
         <FlatList
           data={caregivers}
           keyExtractor={(item) => item.id}
           renderItem={renderCaregiver}
           contentContainerStyle={styles.list}
         />
-
-      </ImageBackground >
-    </View >
+      </ImageBackground>
+    </View>
   );
 };
 
