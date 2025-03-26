@@ -4,6 +4,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { SymbolWeight } from 'expo-symbols';
 import React from 'react';
 import { OpaqueColorValue, StyleProp, ViewStyle } from 'react-native';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 // Add your SFSymbol to MaterialIcons mappings here.
 const MAPPING = {
@@ -13,13 +14,17 @@ const MAPPING = {
   'paperplane.fill': 'send',
   'chevron.left.forwardslash.chevron.right': 'code',
   'chevron.right': 'chevron-right',
+  'searchb': 'search',
+  'messageb': 'message',
+  'profilebutton': 'person-4',
+
+  // 'lol': '< FontAwesome name="" size={ 24} color="black" />'
 } as Partial<
   Record<
     import('expo-symbols').SymbolViewProps['name'],
     React.ComponentProps<typeof MaterialIcons>['name']
   >
 >;
-
 export type IconSymbolName = keyof typeof MAPPING;
 
 /**
