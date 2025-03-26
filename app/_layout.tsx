@@ -5,6 +5,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import { MessagesProvider } from './context/MessagesContext'
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 
@@ -34,15 +35,18 @@ export default function RootLayout() {
 
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <></>
-      <Stack>
-        {/* you can add other routes here, but folders take presendence, espeicllay with an index.jsx
+    <MessagesProvider>
+
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <></>
+        <Stack>
+          {/* you can add other routes here, but folders take presendence, espeicllay with an index.jsx
         also you need to add indiv files before (tabs) or other grps.. u can acces them but grps will visually load first*/}
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+        <StatusBar style="auto" />
+      </ThemeProvider>
+    </MessagesProvider>
   );
 }
