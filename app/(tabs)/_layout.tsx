@@ -8,6 +8,7 @@ import { HapticTab } from '@/components/HapticTab';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { Header } from '@/components/ui/Header'
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -18,7 +19,6 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        headerShown: false,
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         tabBarButton: HapticTab,
         tabBarInactiveTintColor: "white", // inactive tab color
@@ -34,9 +34,9 @@ export default function TabLayout() {
           fontSize: 15,
           margin: 0,
         },
+        headerShown: false,
       }}
     >
-
 
 
       {/* creating files will automatically make a route, u dont even have to explicilty speciify things here.. though you should */}
