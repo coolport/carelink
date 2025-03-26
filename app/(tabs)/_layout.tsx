@@ -3,11 +3,9 @@ import { Tabs } from 'expo-router';
 // so all options etc and docs are under react-navigatoin
 // expo-router = react-navigation + file based routing, its a light wrapper like other expo utils
 import React from 'react';
-import { Platform } from 'react-native';
 
 import { HapticTab } from '@/components/HapticTab';
 import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
@@ -20,23 +18,27 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
+        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         tabBarButton: HapticTab,
         tabBarInactiveTintColor: "white", // inactive tab color
         tabBarStyle: {
           backgroundColor: "#f68181",
           borderTopWidth: 0,
-          height: 75,
-          paddingBottom: 10,
+          height: 70,
+          paddingBottom: 9,
           paddingTop: 5,
         },
+
         tabBarLabelStyle: {
-          fontSize: 17,
+          fontSize: 15,
           margin: 0,
-          padding: 0,
         },
-      }}>
+      }}
+    >
+
+
+
       {/* creating files will automatically make a route, u dont even have to explicilty speciify things here.. though you should */}
       <Tabs.Screen
         name="index"
@@ -49,21 +51,21 @@ export default function TabLayout() {
         name="search"
         options={{
           title: 'Search',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="searchb" color={color} />,
         }}
       />
       <Tabs.Screen
         name="message"
         options={{
           title: 'Message',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="messageb" color={color} />,
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
           title: 'Me',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="profilebutton" color={color} />,
         }}
       />
     </Tabs >
