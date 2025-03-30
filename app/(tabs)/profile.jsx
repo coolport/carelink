@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 
 const ProfilePage = () => {
   const router = useRouter();
 
-  // Sample data (replace with actual state or context)
   const elderly = {
     name: 'Juan Dela Cruz',
     age: 78,
     location: 'Cebu City, Philippines',
-    image: 'https://randomuser.me/api/portraits/men/13.jpg'  // Use the permanent image
+    image: 'https://randomuser.me/api/portraits/men/13.jpg'
   };
 
   const [contact, setContact] = useState({
@@ -22,12 +22,10 @@ const ProfilePage = () => {
 
   const [isEditing, setIsEditing] = useState(false);
 
-  // Toggle Edit Mode
   const toggleEditMode = () => {
     setIsEditing((prev) => !prev);
   };
 
-  // Update contact info
   const handleInputChange = (field, value) => {
     setContact((prev) => ({ ...prev, [field]: value }));
   };
@@ -35,111 +33,164 @@ const ProfilePage = () => {
   const handleSave = () => {
     Alert.alert('Success', 'Contact info saved successfully!');
     console.log('Updated contact:', contact);
-    setIsEditing(false);  // Switch back to read-only mode
+    setIsEditing(false);
   };
 
   return (
     <View style={styles.container}>
 
-      {/* Personal Info Card */}
-      <View style={styles.card}>
-        <Image
-          source={{ uri: elderly.image }}
-          style={styles.image}
-        />
-        <Text style={styles.name}>{elderly.name}</Text>
-        <Text style={styles.info}>Age: {elderly.age}</Text>
-        <Text style={styles.info}>Location: {elderly.location}</Text>
+      {/* Navbar */}
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+          <Ionicons name="arrow-back" size={24} color="black" />
+        </TouchableOpacity>
 
-        {/* Medical History Button */}
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => router.push('/medical-history')}
-        >
-          <Text style={styles.buttonText}>View Medical History</Text>
+        <View style={styles.logoContainer}>
+          <Image source={require('@/assets/images/favicon.png')} style={styles.logo} />
+          <Text style={styles.title}>Carelink</Text>
+        </View>
+
+        <TouchableOpacity onPress={() => console.log("Menu clicked")} style={styles.menuButton}>
+          <Ionicons name="menu" size={24} color="black" />
         </TouchableOpacity>
       </View>
 
-      {/* Emergency Contact Card */}
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Emergency Contact</Text>
+      {/* Main Content */}
+      <View style={styles.content}>
+        {/* Personal Info Card */}
+        <View style={styles.card}>
+          <Image source={{ uri: elderly.image }} style={styles.image} />
+          <Text style={styles.name}>{elderly.name}</Text>
+          <Text style={styles.info}>Age: {elderly.age}</Text>
+          <Text style={styles.info}>Location: {elderly.location}</Text>
 
-        {isEditing ? (
-          <>
-            <TextInput
-              style={styles.input}
-              value={contact.name}
-              onChangeText={(text) => handleInputChange('name', text)}
-              placeholder="Contact Name"
-            />
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => router.push('/medical-history')}
+          >
+            <Text style={styles.buttonText}>View Medical History</Text>
+          </TouchableOpacity>
+        </View>
 
-            <TextInput
-              style={styles.input}
-              value={contact.number}
-              onChangeText={(text) => handleInputChange('number', text)}
-              placeholder="Phone Number"
-              keyboardType="phone-pad"
-            />
+        {/* Emergency Contact Card */}
+        <View style={styles.card}>
+          <Text style={styles.cardTitle}>Emergency Contact</Text>
 
-            <TextInput
-              style={styles.input}
-              value={contact.address}
-              onChangeText={(text) => handleInputChange('address', text)}
-              placeholder="Address"
-            />
+          {isEditing ? (
+            <>
+              <TextInput
+                style={styles.input}
+                value={contact.name}
+                onChangeText={(text) => handleInputChange('name', text)}
+                placeholder="Contact Name"
+              />
 
-            <TextInput
-              style={styles.input}
-              value={contact.relationship}
-              onChangeText={(text) => handleInputChange('relationship', text)}
-              placeholder="Relationship"
-            />
-          </>
-        ) : (
-          <>
-            <Text style={styles.info}>Name: {contact.name}</Text>
-            <Text style={styles.info}>Phone: {contact.number}</Text>
-            <Text style={styles.info}>Address: {contact.address}</Text>
-            <Text style={styles.info}>Relationship: {contact.relationship}</Text>
-          </>
-        )}
+              <TextInput
+                style={styles.input}
+                value={contact.number}
+                onChangeText={(text) => handleInputChange('number', text)}
+                placeholder="Phone Number"
+                keyboardType="phone-pad"
+              />
 
-        {/* Edit/Save Button */}
-        <TouchableOpacity
-          style={styles.saveButton}
-          onPress={isEditing ? handleSave : toggleEditMode}
-        >
-          <Text style={styles.saveButtonText}>
-            {isEditing ? 'Save Changes' : 'Edit Info'}
-          </Text>
-        </TouchableOpacity>
+              <TextInput
+                style={styles.input}
+                value={contact.address}
+                onChangeText={(text) => handleInputChange('address', text)}
+                placeholder="Address"
+              />
+
+              <TextInput
+                style={styles.input}
+                value={contact.relationship}
+                onChangeText={(text) => handleInputChange('relationship', text)}
+                placeholder="Relationship"
+              />
+            </>
+          ) : (
+            <>
+              <Text style={styles.info}>Name: {contact.name}</Text>
+              <Text style={styles.info}>Phone: {contact.number}</Text>
+              <Text style={styles.info}>Address: {contact.address}</Text>
+              <Text style={styles.info}>Relationship: {contact.relationship}</Text>
+            </>
+          )}
+
+          <TouchableOpacity
+            style={styles.saveButton}
+            onPress={isEditing ? handleSave : toggleEditMode}
+          >
+            <Text style={styles.saveButtonText}>
+              {isEditing ? 'Save Changes' : 'Edit Info'}
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
     </View>
   );
 };
 
+export default ProfilePage;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',         // 👈 Keeps cards closer together
-    paddingHorizontal: 20,            // Side padding only
-    backgroundColor: '#f5f5f5',         // Background color for contrast
-    paddingBottom: 0,
-    // marginTop: '20%',
-    paddingTop: '20%',
+    backgroundColor: '#f5f5f5',
   },
+
+  /* Floating Navbar */
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 15,
+    backgroundColor: 'transparent',
+    position: 'absolute',
+    zIndex: 1,
+    width: '100%',
+  },
+  backButton: {
+    padding: 5,
+  },
+  logoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  logo: {
+    width: 30,
+    height: 30,
+    marginRight: 10,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  menuButton: {
+    padding: 5,
+  },
+
+  /* Main Content */
+  content: {
+    flex: 1,
+    marginTop: 80,  // Push content below the navbar
+    paddingHorizontal: 20,
+  },
+
+  /* Card Styling */
   card: {
     backgroundColor: '#fff',
     borderRadius: 12,
     padding: 20,
-    marginBottom: 15,                  // Consistent spacing between cards
+    marginBottom: 20,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 6,
     elevation: 4
   },
+
+  /* Profile Image */
   image: {
     width: 120,
     height: 120,
@@ -147,6 +198,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginBottom: 10
   },
+
+  /* Text Styling */
   name: {
     fontSize: 22,
     fontWeight: 'bold',
@@ -158,11 +211,15 @@ const styles = StyleSheet.create({
     marginVertical: 4,
     textAlign: 'center'
   },
+
+  /* Card Title */
   cardTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 10
   },
+
+  /* Input Fields */
   input: {
     backgroundColor: '#f0f0f0',
     padding: 12,
@@ -170,6 +227,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontSize: 16
   },
+
+  /* Buttons */
   button: {
     backgroundColor: '#9E110D',
     padding: 12,
@@ -195,5 +254,3 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   }
 });
-
-export default ProfilePage;
