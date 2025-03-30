@@ -1,0 +1,225 @@
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, StatusBar, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Checkbox } from 'react-native-paper';
+import { Ionicons } from '@expo/vector-icons';
+
+const RegisterScreen = () => {
+  const navigation = useNavigation();
+
+  // State for form fields
+  const [fullName, setFullName] = useState('');
+  const [age, setAge] = useState('');
+  const [location, setLocation] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [checked, setChecked] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  function showAlert() {
+    Alert.alert(
+      'Terms and Conditions',
+      `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam blandit mauris in felis efficitur, auctor blandit elit laoreet. Ut cursus varius erat, id vehicula lectus suscipit vitae.`
+    );
+  }
+
+  const handleSignUp = () => {
+    if (!fullName || !age || !location || !email || !password || !confirmPassword) {
+      Alert.alert('Error', 'Please fill in all fields.');
+      return;
+    }
+    if (password !== confirmPassword) {
+      Alert.alert('Error', 'Passwords do not match.');
+      return;
+    }
+    if (!checked) {
+      Alert.alert('Error', 'You must accept the terms and conditions.');
+      return;
+    }
+
+    // Store registration data for profile page
+    const profileData = {
+      fullName,
+      age,
+      location,
+      email
+    };
+
+    //   // Navigate to the next page with registration data
+    //   navigation.navigate('emailSent', { profileData });
+    // };
+    navigation.navigate('ProfilePage', {
+      fullName,
+      age,
+      location,
+      email
+    });
+
+    return (
+      <View style={styles.container}>
+        <StatusBar hidden />
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Ionicons name="arrow-back" size={24} color="black" />
+          </TouchableOpacity>
+          <Text style={styles.headerText}>Create{'\n'}Account.</Text>
+        </View>
+
+        <ScrollView contentContainerStyle={styles.body}>
+          {/* Personal Info */}
+          <TextInput
+            style={styles.input}
+            placeholder="Full Name"
+            placeholderTextColor="#ccc"
+            value={fullName}
+            onChangeText={setFullName}
+          />
+
+          <TextInput
+            style={styles.input}
+            placeholder="Age"
+            placeholderTextColor="#ccc"
+            keyboardType="numeric"
+            value={age}
+            onChangeText={setAge}
+          />
+
+          <TextInput
+            style={styles.input}
+            placeholder="Location"
+            placeholderTextColor="#ccc"
+            value={location}
+            onChangeText={setLocation}
+          />
+
+          {/* Email and Password */}
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            placeholderTextColor="#ccc"
+            keyboardType="email-address"
+            value={email}
+            onChangeText={setEmail}
+          />
+
+          <View style={styles.passwordContainer}>
+            <TextInput
+              style={[styles.input, styles.passwordInput]}
+              placeholder="Password"
+              placeholderTextColor="#ccc"
+              secureTextEntry={!showPassword}
+              value={password}
+              onChangeText={setPassword}
+            />
+            <TouchableOpacity style={styles.eyeButton} onPress={togglePasswordVisibility}>
+              <Ionicons name={showPassword ? "eye-off" : "eye"} size={24} color="white" />
+            </TouchableOpacity>
+          </View>
+
+          <TextInput
+            style={styles.input}
+            placeholder="Confirm Password"
+            placeholderTextColor="#ccc"
+            secureTextEntry={!showPassword}
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+          />
+
+          {/* Terms and Conditions */}
+          <View style={styles.termsContainer}>
+            <Checkbox
+              status={checked ? 'checked' : 'unchecked'}
+              onPress={() => setChecked(!checked)}
+            />
+            <TouchableOpacity onPress={showAlert}>
+              <Text style={styles.termsText}>I have read and agreed to the terms and conditions</Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* Sign Up Button */}
+          <TouchableOpacity style={styles.signUpButton} onPress={handleSignUp}>
+            <Text style={styles.signUpText}>Sign Up</Text>
+          </TouchableOpacity>
+        </ScrollView>
+      </View>
+    );
+  };
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#f4f4f4',
+      paddingHorizontal: 20
+    },
+    header: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginTop: 40,
+      marginBottom: 20
+    },
+    headerText: {
+      fontSize: 28,
+      fontWeight: 'bold',
+      marginLeft: 10
+    },
+    body: {
+      paddingBottom: 30
+    },
+    input: {
+      backgroundColor: '#fff',
+      height: 50,
+      borderRadius: 10,
+      paddingHorizontal: 15,
+      fontSize: 16,
+      color: '#333',
+      marginBottom: 15,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.1,
+      shadowRadius: 6,
+      elevation: 3
+    },
+    passwordContainer: {
+      position: 'relative'
+    },
+    passwordInput: {
+      paddingRight: 50
+    },
+    eyeButton: {
+      position: 'absolute',
+      right: 10,
+      top: 10,
+      backgroundColor: '#007bff',
+      padding: 5,
+      borderRadius: 20
+    },
+    termsContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: 20
+    },
+    termsText: {
+      fontSize: 14,
+      color: '#555',
+      marginLeft: 8
+    },
+    signUpButton: {
+      backgroundColor: '#007bff',
+      padding: 15,
+      borderRadius: 8,
+      alignItems: 'center'
+    },
+    signUpText: {
+      color: '#fff',
+      fontSize: 18,
+      fontWeight: 'bold'
+    }
+  })
+};
+
+export default RegisterScreen;
