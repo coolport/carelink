@@ -9,6 +9,8 @@ import { MessagesProvider } from './context/MessagesContext'
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 
+import { ChatProvider } from './context/ChatContext';
+
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
@@ -39,17 +41,20 @@ export default function RootLayout() {
 
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <></>
-        <Stack>
-          {/* you can add other routes here, but folders take presendence, espeicllay with an index.jsx
+        <ChatProvider>
+
+          <Stack>
+            {/* you can add other routes here, but folders take presendence, espeicllay with an index.jsx
         also you need to add indiv files before (tabs) or other grps.. u can acces them but grps will visually load first*/}
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="register" options={{ headerShown: false }} />
-          <Stack.Screen name="login" options={{ headerShown: false }} />
-          <Stack.Screen name="emailSent" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-        </Stack>
-        <StatusBar style="auto" />
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="register" options={{ headerShown: false }} />
+            <Stack.Screen name="login" options={{ headerShown: false }} />
+            <Stack.Screen name="emailSent" options={{ headerShown: false }} />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+          <StatusBar style="auto" />
+        </ChatProvider>
       </ThemeProvider>
-    </MessagesProvider>
+    </MessagesProvider >
   );
 }

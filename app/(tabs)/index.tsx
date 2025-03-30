@@ -38,7 +38,7 @@ const ProfileScreen = () => {
 
 
 
-      <ImageBackground source={require('../../assets/images/bg1.png')} resizeMode="cover" style={styles.background}>
+      <ImageBackground source={require('../../assets/images/8189.jpg')} resizeMode="cover" style={styles.background}>
 
         {/* <Text style={styles.header}>PlaceHolder</Text> */}
         <View style={styles.image_container}>

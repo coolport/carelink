@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
 import { useMessages } from '../context/MessagesContext';
 import { useRouter } from 'expo-router';
 
@@ -8,9 +8,7 @@ const MessagesScreen = () => {
   const router = useRouter();
 
   const goToChat = (caregiver) => {
-    Alert.alert(`Navigating to chat with ${caregiver.name}`);
-    // You can later navigate to the chat screen here
-    // router.push(`/chat/${caregiver.id}`);
+    router.push(`/chat/${caregiver.id}`);  // Navigate to dynamic chat route
   };
 
   const renderMessage = ({ item }) => (
@@ -44,6 +42,8 @@ const MessagesScreen = () => {
     </View>
   );
 };
+
+export default MessagesScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -103,5 +103,3 @@ const styles = StyleSheet.create({
     color: '#888',
   }
 });
-
-export default MessagesScreen;

@@ -1,0 +1,98 @@
+import React from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { useRouter, useLocalSearchParams } from 'expo-router';  // Import route params
+
+const ProfilePage = () => {
+  const router = useRouter();
+  const { fullName, age, location, email } = useLocalSearchParams();  // Retrieve data
+
+  return (
+    <ScrollView style={styles.container}>
+
+      {/* Personal Info Card */}
+      <View style={styles.card}>
+        <Image
+          source={{ uri: 'https://via.placeholder.com/150' }}  // Placeholder image
+          style={styles.image}
+        />
+        <Text style={styles.name}>{fullName || 'Unknown'}</Text>
+        <Text style={styles.info}>Age: {age || 'N/A'}</Text>
+        <Text style={styles.info}>Location: {location || 'N/A'}</Text>
+        <Text style={styles.info}>Email: {email || 'N/A'}</Text>
+      </View>
+
+      {/* Contact Info Card */}
+      <View style={styles.card}>
+        <Text style={styles.cardTitle}>Emergency Contact</Text>
+        <Text style={styles.info}>Name: Maria Dela Cruz</Text>
+        <Text style={styles.info}>Phone: +63 912 345 6789</Text>
+        <Text style={styles.info}>Address: 123 Main St, Cebu City</Text>
+        <Text style={styles.info}>Relationship: Daughter</Text>
+      </View>
+
+      {/* Button for Medical History */}
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => router.push('/medical-history')}
+      >
+        <Text style={styles.buttonText}>View Medical History</Text>
+      </TouchableOpacity>
+
+    </ScrollView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f4f4f4',
+    padding: 20
+  },
+  card: {
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    padding: 20,
+    marginBottom: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 4
+  },
+  image: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    alignSelf: 'center',
+    marginBottom: 15
+  },
+  name: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
+  info: {
+    fontSize: 16,
+    color: '#555',
+    marginVertical: 4
+  },
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10
+  },
+  button: {
+    backgroundColor: '#007bff',
+    padding: 15,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginBottom: 30
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold'
+  }
+});
+
+export default ProfilePage;

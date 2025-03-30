@@ -66,12 +66,14 @@ const SearchScreen = () => {
         <Text style={styles.details}>Experience: {item.experience}</Text>
         <Text style={styles.details}>Rate: {item.rate}</Text>
         <Text style={styles.rating}>⭐ {item.rating.toFixed(1)} / 5</Text>
+        {/* toFixed converts num to string */}
+
 
         <TouchableOpacity
           style={styles.addButton}
           onPress={() => handleAddToMessages(item)}
         >
-          <Text style={styles.addButtonText}>Add to Messages</Text>
+          <Text style={styles.addButtonText}>Contact Caregiver</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -189,7 +191,7 @@ const styles = StyleSheet.create({
   },
   addButton: {
     marginTop: 10,
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#9E110D',
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 5,
