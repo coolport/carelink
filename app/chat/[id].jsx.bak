@@ -1,0 +1,105 @@
+import React from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
+import { useMessages } from '../context/MessagesContext';
+
+const ChatScreen = () => {
+  const { id } = useLocalSearchParams();  // Get the dynamic ID from the URL
+  const { messages } = useMessages();
+  const router = useRouter();
+
+  // Find the caregiver by ID
+  const caregiver = messages.find((msg) => msg.id === id);
+
+  if (!caregiver) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.error}>Caregiver not found.</Text>
+      </View>
+    );
+  }
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+          <Ionicons name="arrow-back" size={24} color="black" />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>{caregiver.name}</Text>
+      </View>
+
+      <View style={styles.profile}>
+        <Image source={{ uri: caregiver.image }} style={styles.avatar} />
+        <Text style={styles.specialty}>{caregiver.specialty}</Text>
+        <Text style={styles.description}>{caregiver.description}</Text>
+        <Text style={styles.details}>Experience: {caregiver.experience}</Text>
+        <Text style={styles.details}>Rate: {caregiver.rate}</Text>
+        <Text style={styles.rating}>⭐ {caregiver.rating} / 5</Text>
+      </View>
+
+      <Text style={styles.chatPlaceholder}>Chat functionality coming soon...</Text>
+    </View>
+  );
+};
+
+export default ChatScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#fff',
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  backButton: {
+    marginRight: 10,
+  },
+  headerTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  profile: {
+    alignItems: 'center',
+    marginBottom: 30,
+  },
+  avatar: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    marginBottom: 10,
+  },
+  specialty: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  description: {
+    fontSize: 14,
+    color: '#555',
+    marginBottom: 5,
+  },
+  details: {
+    fontSize: 12,
+    color: '#777',
+    marginBottom: 3,
+  },
+  rating: {
+    fontSize: 16,
+    color: '#ffb400',
+  },
+  chatPlaceholder: {
+    fontSize: 16,
+    color: '#888',
+    textAlign: 'center',
+    marginTop: 30,
+  },
+  error: {
+    fontSize: 18,
+    color: 'red',
+    textAlign: 'center',
+  },
+});
