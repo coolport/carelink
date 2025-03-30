@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput, Alert, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'; // Import the KeyboardAwareScrollView
 
 const ProfilePage = () => {
   const router = useRouter();
@@ -62,8 +63,7 @@ const ProfilePage = () => {
   };
 
   return (
-    <View style={styles.container}>
-
+    <KeyboardAwareScrollView style={styles.container} resetScrollToCoords={{ x: 0, y: 0 }} scrollEnabled={true}>
       {/* Navbar */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
@@ -192,8 +192,7 @@ const ProfilePage = () => {
           </TouchableOpacity>
         </View>
       </View>
-
-    </View>
+    </KeyboardAwareScrollView>
   );
 };
 
