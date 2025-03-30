@@ -48,7 +48,107 @@ const SearchScreen = () => {
       rate: '$130/day',
       rating: 4.8,
       image: 'https://randomuser.me/api/portraits/men/4.jpg'
-    }
+    },
+    {
+      id: '5',
+      name: 'Alice Johnson',
+      specialty: 'Nurse',
+      description: 'Experienced in post-surgery care and elderly assistance.',
+      experience: '5 years',
+      rate: '$120/day',
+      rating: 4.7,
+      image: 'https://randomuser.me/api/portraits/women/1.jpg'
+    },
+    {
+      id: '6',
+      name: 'Mark Smith',
+      specialty: 'Physical Therapist',
+      description: 'Specializes in injury recovery and physical rehab.',
+      experience: '8 years',
+      rate: '$150/day',
+      rating: 4.9,
+      image: 'https://randomuser.me/api/portraits/men/2.jpg'
+    },
+    {
+      id: '7',
+      name: 'Sophia Lee',
+      specialty: 'Caregiver',
+      description: 'Assists with daily living activities and companionship.',
+      experience: '3 years',
+      rate: '$100/day',
+      rating: 4.5,
+      image: 'https://randomuser.me/api/portraits/women/3.jpg'
+    },
+    {
+      id: '8',
+      name: 'John Doe',
+      specialty: 'Senior Care Specialist',
+      description: 'Provides specialized care for dementia patients.',
+      experience: '6 years',
+      rate: '$130/day',
+      rating: 4.8,
+      image: 'https://randomuser.me/api/portraits/men/4.jpg'
+    },
+    {
+      id: '9',
+      name: 'Rachel Green',
+      specialty: 'Geriatric Care',
+      description: 'Focused on elderly care with a passion for emotional support.',
+      experience: '10 years',
+      rate: '$140/day',
+      rating: 4.6,
+      image: 'https://randomuser.me/api/portraits/women/5.jpg'
+    },
+    {
+      id: '10',
+      name: 'David Brown',
+      specialty: 'Occupational Therapist',
+      description: 'Helps patients regain independence in daily activities.',
+      experience: '7 years',
+      rate: '$125/day',
+      rating: 4.8,
+      image: 'https://randomuser.me/api/portraits/men/6.jpg'
+    },
+    {
+      id: '11',
+      name: 'Emily Davis',
+      specialty: 'Pediatric Nurse',
+      description: 'Specializes in taking care of young children and babies.',
+      experience: '4 years',
+      rate: '$115/day',
+      rating: 4.7,
+      image: 'https://randomuser.me/api/portraits/women/7.jpg'
+    },
+    {
+      id: '12',
+      name: 'James Williams',
+      specialty: 'Nurse Practitioner',
+      description: 'Works with physicians to diagnose and treat various conditions.',
+      experience: '9 years',
+      rate: '$135/day',
+      rating: 4.9,
+      image: 'https://randomuser.me/api/portraits/men/8.jpg'
+    },
+    {
+      id: '13',
+      name: 'Olivia Martinez',
+      specialty: 'Home Health Aide',
+      description: 'Assists with daily living tasks and provides personal care.',
+      experience: '6 years',
+      rate: '$110/day',
+      rating: 4.6,
+      image: 'https://randomuser.me/api/portraits/women/9.jpg'
+    },
+    {
+      id: '14',
+      name: 'Michael Clark',
+      specialty: 'Speech Therapist',
+      description: 'Helps with speech and language issues, specializing in stroke recovery.',
+      experience: '5 years',
+      rate: '$125/day',
+      rating: 4.7,
+      image: 'https://randomuser.me/api/portraits/men/10.jpg'
+    },
   ]);
 
   const handleAddToMessages = (caregiver) => {
