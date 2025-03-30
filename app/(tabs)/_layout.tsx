@@ -67,6 +67,13 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <IconSymbol size={20} name="profilebutton" color={color} />,
         }}
       />
+      <Tabs.Screen
+        name="medical"
+        options={{
+          title: 'Medical',
+          tabBarIcon: ({ color }) => <IconSymbol size={20} name="gamot" color={color} />,
+        }}
+      />
     </Tabs>
   );
 }
