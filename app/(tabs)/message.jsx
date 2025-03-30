@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
 import { useMessages } from '../context/MessagesContext';
 import { useRouter } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 
 const MessagesScreen = () => {
   const { messages } = useMessages();
@@ -29,16 +30,37 @@ const MessagesScreen = () => {
 
   return (
     <View style={styles.container}>
-      {messages.length === 0 ? (
-        <Text style={styles.noMessages}>No messages yet. Add caregivers from the Search tab.</Text>
-      ) : (
-        <FlatList
-          data={messages}
-          keyExtractor={(item) => item.id}
-          renderItem={renderMessage}
-          contentContainerStyle={styles.list}
-        />
-      )}
+
+      {/* Navbar */}
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+          <Ionicons name="arrow-back" size={24} color="black" />
+        </TouchableOpacity>
+
+        <View style={styles.logoContainer}>
+          <Image source={require('@/assets/images/favicon.png')} style={styles.logo} />
+          <Text style={styles.title}>Carelink</Text>
+        </View>
+
+        <TouchableOpacity onPress={() => console.log("Menu clicked")} style={styles.menuButton}>
+          <Ionicons name="menu" size={24} color="black" />
+        </TouchableOpacity>
+      </View>
+
+      {/* Add marginTop to push content below the header */}
+      <View style={styles.content}>
+        {messages.length === 0 ? (
+          <Text style={styles.noMessages}>{"\n"}{"\n"}{"\n"}{"\n"}No messages yet. {"\n"}Add caregivers from the Search tab.</Text>
+        ) : (
+          <FlatList
+            data={messages}
+            keyExtractor={(item) => item.id}
+            renderItem={renderMessage}
+            contentContainerStyle={styles.list}
+          />
+        )}
+      </View>
+
     </View>
   );
 };
@@ -49,8 +71,44 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: 20,
   },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 15,
+    backgroundColor: 'transparent',
+    position: 'absolute',             // Floating navbar
+    zIndex: 1,
+    width: '100%',
+  },
+  backButton: {
+    padding: 5,
+  },
+  logoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  logo: {
+    width: 30,
+    height: 30,
+    marginRight: 10,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  menuButton: {
+    padding: 5,
+  },
+
+  /* Main Content with marginTop to prevent overlap */
+  content: {
+    flex: 1,
+    marginTop: 80,   // Pushes content below the header
+    paddingHorizontal: 20,
+  },
+
   list: {
     paddingBottom: 20,
   },
@@ -85,7 +143,7 @@ const styles = StyleSheet.create({
     color: '#555',
   },
   chatButton: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#9E110D',
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 5,
@@ -101,5 +159,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     color: '#888',
+    marginTop: 20,
   }
 });

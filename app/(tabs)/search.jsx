@@ -81,6 +81,8 @@ const SearchScreen = () => {
 
   return (
     <View style={styles.container}>
+
+      {/* navbar start */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
           <Ionicons name="arrow-back" size={24} color="black" />
@@ -95,13 +97,15 @@ const SearchScreen = () => {
           <Ionicons name="menu" size={24} color="black" />
         </TouchableOpacity>
       </View>
+      {/* navbar end */}
 
-      <ImageBackground source={require('../../assets/images/bg2.png')} resizeMode="cover" style={styles.background}>
+      <ImageBackground source={require('../../assets/images/8189.jpg')} resizeMode="cover" style={styles.background}>
         <FlatList
           data={caregivers}
           keyExtractor={(item) => item.id}
           renderItem={renderCaregiver}
           contentContainerStyle={styles.list}
+          style={{ marginTop: 50 }}   // Add space beneath the navbar
         />
       </ImageBackground>
     </View>
@@ -119,7 +123,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 15,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: 'transparent',  // Make navbar transparent
+    position: 'absolute',            // Ensure it floats over background
+    zIndex: 1,                       // Keep it above background
+    width: '100%',
+    marginBottom: 100,
   },
   backButton: {
     padding: 5,

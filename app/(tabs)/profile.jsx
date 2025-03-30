@@ -126,7 +126,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,            // Side padding only
     backgroundColor: '#f5f5f5',         // Background color for contrast
     paddingBottom: 0,
-    marginTop: '20%',
+    // marginTop: '20%',
+    paddingTop: '20%',
   },
   card: {
     backgroundColor: '#fff',

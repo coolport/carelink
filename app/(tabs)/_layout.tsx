@@ -15,16 +15,15 @@ export default function TabLayout() {
         tabBarButton: HapticTab,
         tabBarInactiveTintColor: "white",
 
-        // Standard tab bar style
         tabBarStyle: {
-          height: 70,
           paddingTop: '2%',
-          width: '90%',
-          marginBottom: 20,
-          marginTop: 20,
-          borderRadius: 20,
-          borderTopEndRadius: 20,
-          borderTopStartRadius: 20,
+          marginBottom: 25,
+          marginTop: 0,
+          height: 70,
+          width: '100%',
+          // borderRadius: 20,
+          // borderTopEndRadius: 20,
+          // borderTopStartRadius: 20,
           alignSelf: 'center',
           backgroundColor: "#9E110D",
           borderTopLeftRadius: 0,
@@ -34,6 +33,8 @@ export default function TabLayout() {
           shadowOpacity: 0.1,
           shadowRadius: 4,
           elevation: 5,                     // Android shadow
+          // paddingBottom: 20,
+          // paddingTop: 20,
         },
         headerShown: false,
       }}
