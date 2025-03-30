@@ -12,30 +12,6 @@ const ProfileScreen = () => {
     <View style={styles.container}>
 
 
-      <View style={styles.header}>
-
-        {/* Back Button */}
-        <TouchableOpacity onPress={() => router.navigate('/register')} style={styles.backButton}>
-          <Ionicons name="arrow-back" size={24} color="black" />
-        </TouchableOpacity>
-
-        {/* Logo */}
-        <View style={styles.logoContainer}>
-          <Image
-            source={require('@/assets/images/favicon.png')}  // Replace with your logo path
-            style={styles.logo}
-          />
-          <Text style={styles.title}>Carelink</Text>
-        </View>
-
-        {/* Menu Icon */}
-        <TouchableOpacity onPress={() => console.log("Menu clicked")} style={styles.menuButton}>
-          <Ionicons name="arrow-back" size={24} color="black" />
-        </TouchableOpacity>
-
-
-      </View>
-
 
 
       <ImageBackground source={require('../../assets/images/8189.jpg')} resizeMode="cover" style={styles.background}>

@@ -2,17 +2,12 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import * as ImagePicker from 'expo-image-picker';
 
 const ProfilePage = () => {
   const router = useRouter();
 
-  const elderly = {
-    name: 'Juan Dela Cruz',
-    age: 78,
-    location: 'Cebu City, Philippines',
-    image: 'https://randomuser.me/api/portraits/men/13.jpg'
-  };
-
+  const [profileImage, setProfileImage] = useState(null);  // Initially empty
   const [contact, setContact] = useState({
     name: 'Maria Dela Cruz',
     number: '+63 912 345 6789',
@@ -32,8 +27,28 @@ const ProfilePage = () => {
 
   const handleSave = () => {
     Alert.alert('Success', 'Contact info saved successfully!');
-    console.log('Updated contact:', contact);
     setIsEditing(false);
+  };
+
+  // Image Picker Logic
+  const pickImage = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (status !== 'granted') {
+      Alert.alert('Permission denied', 'We need access to your photos to upload an image.');
+      return;
+    }
+
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],         // Square cropping
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setProfileImage(result.assets[0].uri);  // Save the uploaded image
+    }
   };
 
   return (
@@ -55,18 +70,28 @@ const ProfilePage = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Main Content */}
       <View style={styles.content}>
-        {/* Personal Info Card */}
+
+        {/* Profile Card with Image Upload */}
         <View style={styles.card}>
-          <Image source={{ uri: elderly.image }} style={styles.image} />
-          <Text style={styles.name}>{elderly.name}</Text>
-          <Text style={styles.info}>Age: {elderly.age}</Text>
-          <Text style={styles.info}>Location: {elderly.location}</Text>
+          <TouchableOpacity onPress={pickImage} style={styles.imageContainer}>
+            {profileImage ? (
+              <Image source={{ uri: profileImage }} style={styles.image} />
+            ) : (
+              <View style={styles.emptyFrame}>
+                <Ionicons name="camera" size={40} color="#aaa" />
+                <Text style={styles.uploadText}>Upload Photo</Text>
+              </View>
+            )}
+          </TouchableOpacity>
+
+          <Text style={styles.name}>Juan Dela Cruz</Text>
+          <Text style={styles.info}>Age: 73</Text>
+          <Text style={styles.info}>Location: Quezon City</Text>
 
           <TouchableOpacity
             style={styles.button}
-            onPress={() => router.push('/medical-history')}
+            onPress={() => router.push('/medical')}
           >
             <Text style={styles.buttonText}>View Medical History</Text>
           </TouchableOpacity>
@@ -173,11 +198,39 @@ const styles = StyleSheet.create({
   /* Main Content */
   content: {
     flex: 1,
-    marginTop: 80,  // Push content below the navbar
+    marginTop: 80,
     paddingHorizontal: 20,
   },
 
-  /* Card Styling */
+  /* Profile Image Upload */
+  imageContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  image: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    borderWidth: 2,
+    borderColor: '#ccc',
+  },
+  emptyFrame: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    borderWidth: 2,
+    borderColor: '#ccc',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f0f0f0',
+  },
+  uploadText: {
+    fontSize: 14,
+    color: '#aaa',
+    marginTop: 5,
+  },
+
+  /* Card Layout */
   card: {
     backgroundColor: '#fff',
     borderRadius: 12,
@@ -188,15 +241,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 6,
     elevation: 4
-  },
-
-  /* Profile Image */
-  image: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    alignSelf: 'center',
-    marginBottom: 10
   },
 
   /* Text Styling */
@@ -210,13 +254,6 @@ const styles = StyleSheet.create({
     color: '#555',
     marginVertical: 4,
     textAlign: 'center'
-  },
-
-  /* Card Title */
-  cardTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10
   },
 
   /* Input Fields */
