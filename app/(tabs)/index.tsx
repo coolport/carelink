@@ -15,7 +15,7 @@ const ProfileScreen = () => {
       <View style={styles.header}>
 
         {/* Back Button */}
-        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+        <TouchableOpacity onPress={() => router.navigate('/register')} style={styles.backButton}>
           <Ionicons name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
 
@@ -51,16 +51,24 @@ const ProfileScreen = () => {
         <View style={styles.buttoncontainer}>
 
           <TouchableOpacity style={styles.button} onPress={() => router.navigate('/search')} >
-            Find Caregiver
+            <Text>
+              Find Caregiver
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => router.navigate('/search')}>
-            Medical History
+            <Text>
+              Medical History
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => router.navigate('/search')}>
-            Medication
+            <Text>
+              Medication
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => router.navigate('/search')}>
-            Contact
+            <Text>
+              Contact
+            </Text>
           </TouchableOpacity>
         </View>
       </ImageBackground >
