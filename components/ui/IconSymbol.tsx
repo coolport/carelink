@@ -17,6 +17,7 @@ const MAPPING = {
   'searchb': 'search',
   'messageb': 'message',
   'profilebutton': 'person-4',
+  'gamot': 'vaccines'
 
   // 'lol': '< FontAwesome name="" size={ 24} color="black" />'
 } as Partial<
