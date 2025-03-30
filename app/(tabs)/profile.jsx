@@ -9,10 +9,16 @@ const ProfilePage = () => {
 
   const [profileImage, setProfileImage] = useState(null);  // Initially empty
   const [contact, setContact] = useState({
-    name: 'Maria Dela Cruz',
-    number: '+63 912 345 6789',
-    address: '123 Main St, Cebu City',
-    relationship: 'Daughter'
+    name: 'Enter contact',
+    number: '+63 123 345 6789',
+    address: '123 blabla, Caloocan City',
+    relationship: 'Cousin'
+  });
+
+  const [profile, setProfile] = useState({
+    name: 'Juan Dela Cruz',
+    age: '00',
+    location: 'Enter City'
   });
 
   const [isEditing, setIsEditing] = useState(false);
@@ -23,6 +29,10 @@ const ProfilePage = () => {
 
   const handleInputChange = (field, value) => {
     setContact((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleProfileInputChange = (field, value) => {
+    setProfile((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleSave = () => {
@@ -85,15 +95,46 @@ const ProfilePage = () => {
             )}
           </TouchableOpacity>
 
-          <Text style={styles.name}>Juan Dela Cruz</Text>
-          <Text style={styles.info}>Age: 73</Text>
-          <Text style={styles.info}>Location: Quezon City</Text>
+          <Text style={styles.name}>{profile.name}</Text>
+
+          {isEditing ? (
+            <>
+              <TextInput
+                style={styles.input}
+                value={profile.age}
+                onChangeText={(text) => handleProfileInputChange('age', text)}
+                placeholder="Age"
+                keyboardType="numeric"
+              />
+
+              <TextInput
+                style={styles.input}
+                value={profile.location}
+                onChangeText={(text) => handleProfileInputChange('location', text)}
+                placeholder="Location"
+              />
+            </>
+          ) : (
+            <>
+              <Text style={styles.info}>Age: {profile.age}</Text>
+              <Text style={styles.info}>Location: {profile.location}</Text>
+            </>
+          )}
 
           <TouchableOpacity
             style={styles.button}
             onPress={() => router.push('/medical')}
           >
             <Text style={styles.buttonText}>View Medical History</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.saveButton}
+            onPress={isEditing ? handleSave : toggleEditMode}
+          >
+            <Text style={styles.saveButtonText}>
+              {isEditing ? 'Save Changes' : 'Edit Profile'}
+            </Text>
           </TouchableOpacity>
         </View>
 
