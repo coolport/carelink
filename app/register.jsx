@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, StatusBar, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, StatusBar, Alert, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Checkbox } from 'react-native-paper';
 import { Ionicons } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const RegisterScreen = () => {
   const navigation = useNavigation();
@@ -13,13 +14,12 @@ const RegisterScreen = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  function showAlert() {
+  const showAlert = () => {
     Alert.alert(
       'Terms and Conditions',
-      `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam blandit mauris in felis efficitur, auctor blandit elit laoreet. Ut cursus varius erat, id vehicula lectus suscipit vitae. Proin venenatis, ex vitae auctor lacinia, dolor leo venenatis odio, vitae gravida lorem tellus quis velit. In ut tortor at turpis faucibus pellentesque nec et orci. Sed sem ante, imperdiet at tincidunt eu, convallis non tortor. Cras dapibus nulla ut sapien posuere consequat. Praesent pretium leo nec semper ornare. Morbi et purus sed nisi ultrices posuere ut a nulla. Nullam at convallis leo, vitae vehicula lacus. Ut ut fermentum est.`,
+      `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam blandit mauris in felis efficitur, auctor blandit elit laoreet.`
     );
-  }
-
+  };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -44,134 +44,159 @@ const RegisterScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#f5f5f5' }}>
       <StatusBar hidden />
+
+      {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons name="arrow-back" size={24} color="black" />
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+          <Ionicons name="arrow-back" size={24} color="#fff" />
         </TouchableOpacity>
-        <Text style={styles.headerText}>Create{'\n'}Account.</Text>
+
+        <View style={styles.logoContainer}>
+          <Text style={styles.headerText}>Create Account</Text>
+        </View>
       </View>
 
+      {/* Form */}
       <ScrollView contentContainerStyle={styles.body}>
-        <TextInput
-          style={styles.input}
-          placeholder="Full Name"
-          placeholderTextColor="#ccc"
-          value={fullName}
-          onChangeText={setFullName}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          placeholderTextColor="#ccc"
-          keyboardType="email-address"
-          value={email}
-          onChangeText={setEmail}
-        />
 
-        <View style={styles.passwordContainer}>
+        {/* Full Name */}
+        <View style={styles.inputContainer}>
+          <Ionicons name="person-outline" size={22} color="#9E110D" />
           <TextInput
-            style={[styles.input, styles.passwordInput]}
+            style={styles.input}
+            placeholder="Full Name"
+            placeholderTextColor="#999"
+            value={fullName}
+            onChangeText={setFullName}
+          />
+        </View>
+
+        {/* Email */}
+        <View style={styles.inputContainer}>
+          <Ionicons name="mail-outline" size={22} color="#9E110D" />
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            placeholderTextColor="#999"
+            keyboardType="email-address"
+            value={email}
+            onChangeText={setEmail}
+          />
+        </View>
+
+        {/* Password */}
+        <View style={styles.inputContainer}>
+          <Ionicons name="lock-closed-outline" size={22} color="#9E110D" />
+          <TextInput
+            style={styles.input}
             placeholder="Password"
-            placeholderTextColor="#ccc"
+            placeholderTextColor="#999"
             secureTextEntry={!showPassword}
             value={password}
             onChangeText={setPassword}
           />
-          <TouchableOpacity style={styles.eyeButton} onPress={togglePasswordVisibility}>
-            <Ionicons name={showPassword ? "eye-off" : "eye"} size={24} color="white" />
+          <TouchableOpacity onPress={togglePasswordVisibility}>
+            <Ionicons
+              name={showPassword ? 'eye-off-outline' : 'eye-outline'}
+              size={22}
+              color="#9E110D"
+            />
           </TouchableOpacity>
         </View>
 
-        <TextInput
-          style={styles.input}
-          placeholder="Confirm Password"
-          placeholderTextColor="#ccc"
-          secureTextEntry={!showPassword}
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-        />
+        {/* Confirm Password */}
+        <View style={styles.inputContainer}>
+          <Ionicons name="key-outline" size={22} color="#9E110D" />
+          <TextInput
+            style={styles.input}
+            placeholder="Confirm Password"
+            placeholderTextColor="#999"
+            secureTextEntry={!showPassword}
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+          />
+        </View>
 
+        {/* Terms and Conditions */}
         <View style={styles.termsContainer}>
           <Checkbox
             status={checked ? 'checked' : 'unchecked'}
             onPress={() => setChecked(!checked)}
+            color="#9E110D"
           />
           <TouchableOpacity onPress={showAlert}>
-            <Text style={styles.termsText}>I have read and agreed to the terms and conditions</Text>
+            <Text style={styles.termsText}>I have read and agree to the terms and conditions</Text>
           </TouchableOpacity>
         </View>
 
+        {/* Sign Up Button */}
         <TouchableOpacity style={styles.signUpButton} onPress={handleSignUp}>
           <Text style={styles.signUpText}>Sign Up</Text>
         </TouchableOpacity>
+
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
+
+export default RegisterScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#393939',
+    backgroundColor: '#f5f5f5',
   },
   header: {
-    width: '100%',
-    height: 200,
-    backgroundColor: '#fff',
-    borderBottomLeftRadius: 40,
+    backgroundColor: '#9E110D',
     paddingHorizontal: 20,
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    paddingTop: 20,
-    paddingBottom: 20,
-    zIndex: 10,
+    paddingVertical: 15,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  backButton: {
+    padding: 10,
+  },
+  logoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+  },
+  favicon: {
+    width: 30,
+    height: 30,
+    marginRight: 10,
   },
   headerText: {
     fontSize: 22,
     fontWeight: 'bold',
-    marginTop: 75,
-    marginLeft: 5,
+    color: '#fff',
   },
   body: {
-    backgroundColor: '#393939',
-    paddingHorizontal: 20,
-    paddingTop: 70,
-    paddingBottom: 30,
+    padding: 20,
+    backgroundColor: '#f5f5f5',
   },
-  input: {
-    backgroundColor: 'transparent',
-    borderBottomWidth: 2,
-    borderBottomColor: '#ccc',
-    color: 'white',
-    fontSize: 16,
-    marginBottom: 25,
-    paddingVertical: 15,
-    width: '95%',
-    alignSelf: 'center',
-  },
-  passwordContainer: {
+  inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 25,
-    width: '98%',
-    marginLeft: '2%',
+    backgroundColor: '#fff',
+    paddingHorizontal: 15,
+    paddingVertical: 12,
+    borderRadius: 10,
+    marginBottom: 20,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
-  passwordInput: {
+  input: {
     flex: 1,
-    marginRight: 10,
-  },
-  eyeButton: {
-    padding: 5,
-    backgroundColor: 'grey',
-    borderRadius: 50,
-    marginRight: 10,
-  },
-  generateButton: {
-    padding: 5,
-    backgroundColor: 'grey',
-    borderRadius: 50,
+    fontSize: 16,
+    color: '#333',
+    marginLeft: 10,
   },
   termsContainer: {
     flexDirection: 'row',
@@ -179,22 +204,24 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   termsText: {
-    color: 'white',
+    color: '#555',
     fontSize: 14,
+    marginLeft: 10,
   },
   signUpButton: {
+    backgroundColor: '#9E110D',
     paddingVertical: 15,
-    borderRadius: 25,
+    borderRadius: 8,
     alignItems: 'center',
-    backgroundColor: "white",
-    marginTop: 70,
-    marginBottom: 20,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
   },
   signUpText: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
-    color: 'black',
-  },
+    color: '#fff',
+  }
 });
-
-export default RegisterScreen;
