@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity, FlatList, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useMessages } from '../context/MessagesContext';
 import { useChat } from '../context/ChatContext';
+import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view'; // Import this
 
 const ChatScreen = () => {
   const { id } = useLocalSearchParams();
@@ -30,44 +31,49 @@ const ChatScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-          <Ionicons name="arrow-back" size={24} color="black" />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>{caregiver.name}</Text>
-      </View>
-
-      <View style={styles.profile}>
-        <Image source={{ uri: caregiver.image }} style={styles.avatar} />
-        <Text style={styles.specialty}>{caregiver.specialty}</Text>
-      </View>
-
-      {/* Chat messages */}
-      <FlatList
-        data={chats[id] || []}
-        keyExtractor={(_, index) => index.toString()}
-        renderItem={({ item }) => (
-          <View style={[styles.messageContainer, item.sender === 'You' ? styles.sentMessage : styles.receivedMessage]}>
-            <Text style={styles.messageText}>{item.text}</Text>
-            <Text style={styles.timestamp}>{item.timestamp}</Text>
+    <KeyboardAvoidingView style={styles.container} behavior="height">
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.chatContainer}>
+          <View style={styles.header}>
+            <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+              <Ionicons name="arrow-back" size={24} color="black" />
+            </TouchableOpacity>
+            <Text style={styles.headerTitle}>{caregiver.name}</Text>
           </View>
-        )}
-      />
 
-      {/* Message input */}
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Type a message..."
-          value={message}
-          onChangeText={setMessage}
-        />
-        <TouchableOpacity onPress={handleSendMessage} style={styles.sendButton}>
-          <Ionicons name="send" size={24} color="white" />
-        </TouchableOpacity>
-      </View>
-    </View>
+          <View style={styles.profile}>
+            <Image source={{ uri: caregiver.image }} style={styles.avatar} />
+            <Text style={styles.specialty}>{caregiver.specialty}</Text>
+          </View>
+
+          {/* Chat messages with KeyboardAwareFlatList */}
+          <KeyboardAwareFlatList
+            data={chats[id] || []}
+            keyExtractor={(_, index) => index.toString()}
+            renderItem={({ item }) => (
+              <View style={[styles.messageContainer, item.sender === 'You' ? styles.sentMessage : styles.receivedMessage]}>
+                <Text style={styles.messageText}>{item.text}</Text>
+                <Text style={styles.timestamp}>{item.timestamp}</Text>
+              </View>
+            )}
+            contentContainerStyle={styles.flatListContainer}
+          />
+
+          {/* Message input */}
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Type a message..."
+              value={message}
+              onChangeText={setMessage}
+            />
+            <TouchableOpacity onPress={handleSendMessage} style={styles.sendButton}>
+              <Ionicons name="send" size={24} color="white" />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -77,7 +83,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    marginBottom: 30
+  },
+  chatContainer: {
+    flex: 1,
+    justifyContent: 'flex-end', // Makes sure the content starts at the bottom
   },
   header: {
     flexDirection: 'row',
@@ -122,7 +131,7 @@ const styles = StyleSheet.create({
   },
   messageText: {
     fontSize: 16,
-    color: 'white'
+    color: 'white',
   },
   timestamp: {
     fontSize: 12,
@@ -148,6 +157,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#9E110D',
     padding: 10,
     borderRadius: 5,
+  },
+  flatListContainer: {
+    flexGrow: 1,
+    paddingBottom: 10, // Ensures the messages don't get cut off
   },
   error: {
     textAlign: 'center',
