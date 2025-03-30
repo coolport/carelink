@@ -38,6 +38,7 @@ const RegisterScreen = () => {
       Alert.alert('Error', 'You must accept the terms and conditions.');
       return;
     }
+
     // Proceed with sign-up process
     navigation.navigate('emailSent');
   };

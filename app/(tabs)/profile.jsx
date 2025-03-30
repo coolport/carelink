@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   button: {
-    backgroundColor: '#28a745',
+    backgroundColor: '#9E110D',
     padding: 12,
     borderRadius: 8,
     alignItems: 'center',
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   saveButton: {
-    backgroundColor: '#28a745',
+    backgroundColor: '#9E110D',
     padding: 12,
     borderRadius: 8,
     alignItems: 'center',
