@@ -1,166 +1,119 @@
 import React from 'react';
 import { useRouter } from 'expo-router';
-import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-// import { Header } from '@/components/ui/Header';
+import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Image } from 'react-native';
+import { BlurView } from 'expo-blur';  // Import BlurView
 
 const ProfileScreen = () => {
-  const router = useRouter()
+  const router = useRouter();
 
-  //like react, you can only return one parent view / div / component / etc
   return (
     <View style={styles.container}>
 
+      <ImageBackground
+        source={require('../../assets/images/hero2.jpg')}
+        resizeMode="cover"
+        style={styles.heroBackground}
+      >
+        <View style={styles.darkOverlay}>
+          <BlurView intensity={50} tint="dark" style={styles.glassOverlay}>
+            <View style={styles.heroContent}>
 
+              <View style={styles.titleContainer}>
+                <Image
+                  source={require('../../assets/images/favicon.png')}
+                  style={styles.favicon}
+                />
+                <Text style={styles.heroTitle}>Carelink</Text>
+              </View>
 
+              <Text style={styles.heroTagline}>
+                Because you want only the {"\n"} best for your loved ones.
+              </Text>
 
-      <ImageBackground source={require('../../assets/images/8189.jpg')} resizeMode="cover" style={styles.background}>
-
-        {/* <Text style={styles.header}>PlaceHolder</Text> */}
-        <View style={styles.image_container}>
-          <Image
-            style={styles.image}
-            source={require('../../assets/images/home.jpeg')}
-          />
+              <TouchableOpacity
+                style={styles.ctaButton}
+                onPress={() => router.push('/search')}
+              >
+                <Text style={styles.ctaText}>Find Caregiver</Text>
+              </TouchableOpacity>
+            </View>
+          </BlurView>
         </View>
+      </ImageBackground>
 
-        <View style={styles.buttoncontainer}>
-
-          <TouchableOpacity style={styles.button} onPress={() => router.navigate('/search')} >
-            <Text>
-              Find Caregiver
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => router.navigate('/search')}>
-            <Text>
-              Medical History
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => router.navigate('/search')}>
-            <Text>
-              Medication
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => router.navigate('/search')}>
-            <Text>
-              Contact
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </ImageBackground >
-    </View >
+    </View>
   );
 };
 
-//basically wrapped css.
-//differences: camelCase instead of kebabCase
-//             no px, because dp is default.
-//             quotes on colors, strings, etc./
-//u can technically use css or others like nativewind (tw port), but this is standard in modern react..
+export default ProfileScreen;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+
+  heroBackground: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
   },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 10,
-    paddingHorizontal: 65,
-    // backgroundColor: '#f68181'
-    marginTop: '20%'
+  darkOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',   // Dark transparent overlay
   },
-  backButton: {
-    padding: 10
-  },
-  logoContainer: {
-    flexDirection: 'row',
+
+  glassOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'center',
     alignItems: 'center',
   },
-  logo: {
-    width: 100,
-    height: 40,
-    resizeMode: 'contain',
+
+  heroContent: {
+    alignItems: 'center',
+    zIndex: 2,
   },
-  title: {
-    fontSize: 20,
+
+  titleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  favicon: {
+    width: 50,
+    height: 50,
+    marginRight: 10,
+  },
+  heroTitle: {
+    fontSize: 60,
     fontWeight: 'bold',
-    marginLeft: 8,
+    color: '#fff',
+    fontFamily: 'Cochin',
+    fontStyle: 'italic',
+    textAlign: 'center',
   },
-  menuButton: {
-    padding: 10,
-  },
-  buttoncontainer: {
-    marginTop: 0,
-    width: '100%',
-    height: '100%',
 
+  heroTagline: {
+    fontSize: 20,
+    color: '#ddd',
+    textAlign: 'center',
+    marginBottom: 30,
   },
-  button: {
-    // marginTop: 200,
-    // width: 80,
-    // height: 80,
-    // borderRadius: 60,
-    // borderColor: 'black'
-    backgroundColor: "#ff6767",
+
+  ctaButton: {
+    backgroundColor: '#9E110D',
     paddingVertical: 15,
-    borderRadius: 25,
-    alignItems: 'center',
-    width: '65%',
-    alignSelf: 'center',
-    marginTop: 40,
-    color: 'white',
-
-
-
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.30,
-    shadowRadius: 4.65,
-
+    paddingHorizontal: 50,
+    borderRadius: 30,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
     elevation: 8,
-
-
   },
-  background: {
-    width: '100%',
-    height: '100%',
-    // justifyContent: 'center', //center center 
-    alignItems: 'center', // center y wise, x still up top
-  },
-  image_container: {
-    width: 270,               // for circle, set width and height to equal
-    height: 270,
-    borderRadius: 135,         // Half of width/height to make it circular
-    overflow: 'hidden',// prevent image from spilling      
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 3,
-    borderColor: '#af6e6e',
-    marginTop: '7%',
-
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.30,
-    shadowRadius: 4.65,
-
-    elevation: 8,
-
-
-  },
-  image: {
-    width: '100%',
-    height: '100%'
+  ctaText: {
+    fontSize: 20,
+    color: '#fff',
+    fontWeight: 'bold',
   }
 });
-
-export default ProfileScreen;

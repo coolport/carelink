@@ -99,7 +99,7 @@ const ProfilePage = () => {
 
         {/* Emergency Contact Card */}
         <View style={styles.card}>
-          <Text style={styles.cardTitle}>Emergency Contact</Text>
+          <Text style={styles.cardTitle}>Contact</Text>
 
           {isEditing ? (
             <>
