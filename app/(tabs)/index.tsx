@@ -32,7 +32,7 @@ const ProfileScreen = () => {
 
               <TouchableOpacity
                 style={styles.ctaButton}
-                onPress={() => router.push('/search')}
+                onPress={() => router.push('/(tabs)/search')}
               >
                 <Text style={styles.ctaText}>Find Caregiver</Text>
               </TouchableOpacity>

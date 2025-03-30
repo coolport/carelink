@@ -42,7 +42,8 @@ export default function RootLayout() {
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <ChatProvider>
 
-          <Stack>
+          <Stack
+            screenOptions={{ headerShown: false }} >
             {/* you can add other routes here, but folders take presendence, espeicllay with an index.jsx
         also you need to add indiv files before (tabs) or other grps.. u can acces them but grps will visually load first*/}
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />

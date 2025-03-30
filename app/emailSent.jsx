@@ -29,7 +29,7 @@ const EmailSentScreen = () => {
       return;
     }
     console.log('Entered Code:', code);
-    navigation.navigate('login');
+    navigation.navigate('(tabs)');
   };
 
   return (
@@ -42,7 +42,7 @@ const EmailSentScreen = () => {
           <Ionicons name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
         <Animated.Text style={[styles.headerText, { transform: [{ translateX: headerTextAnimation }] }]}>
-          Verify {'\n'}Email.
+          Verify Email
         </Animated.Text>
       </View>
 
@@ -63,7 +63,7 @@ const EmailSentScreen = () => {
           <Text style={styles.signInText}>Sign In</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('register')}>
+        <TouchableOpacity onPress={() => navigation.navigate('./index')}>
           <Text style={styles.cancelButton}>Go Home</Text>
         </TouchableOpacity>
       </Animated.View>
@@ -74,14 +74,14 @@ const EmailSentScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#393939',
+    backgroundColor: '#f5f5f5',
   },
   header: {
     width: '100%',
-    height: 200,
-    backgroundColor: '#fff',
-    borderBottomLeftRadius: 40,
+    height: 150,
+    backgroundColor: '#9E110D',
     paddingHorizontal: 20,
+    justifyContent: 'center',
     alignItems: 'flex-start',
     paddingTop: 20,
     zIndex: 10,
@@ -89,28 +89,27 @@ const styles = StyleSheet.create({
   headerText: {
     fontWeight: 'bold',
     fontSize: 22,
-    marginTop: 75,
-    marginLeft: 5,
+    color: 'white',
+    marginTop: 20,
   },
   body: {
     flexGrow: 1,
-    backgroundColor: '#393939',
+    backgroundColor: '#f5f5f5',
     paddingHorizontal: 20,
     paddingTop: 50,
     paddingBottom: 20,
   },
   bodyText: {
-    color: 'white',
+    color: '#333',
     fontSize: 20,
     marginBottom: 25,
     textAlign: 'center',
-    marginTop: 100,
   },
   input: {
     backgroundColor: 'transparent',
     borderBottomWidth: 2,
     borderBottomColor: '#ccc',
-    color: 'white',
+    color: '#333',
     fontSize: 16,
     marginBottom: 25,
     paddingVertical: 15,
@@ -119,7 +118,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   signInButton: {
-    backgroundColor: "white",
+    backgroundColor: '#9E110D',
     paddingVertical: 15,
     borderRadius: 25,
     alignItems: 'center',
@@ -130,12 +129,13 @@ const styles = StyleSheet.create({
   signInText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: 'black',
+    color: 'white',
   },
   cancelButton: {
-    color: 'white',
+    color: '#9E110D',
     alignSelf: 'center',
     marginTop: 10,
+    fontWeight: 'bold',
   },
 });
 
