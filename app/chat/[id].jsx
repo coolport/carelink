@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    marginBottom: 30
   },
   header: {
     flexDirection: 'row',
@@ -113,7 +114,7 @@ const styles = StyleSheet.create({
   },
   sentMessage: {
     alignSelf: 'flex-end',
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#9E110D',
   },
   receivedMessage: {
     alignSelf: 'flex-start',
@@ -121,10 +122,11 @@ const styles = StyleSheet.create({
   },
   messageText: {
     fontSize: 16,
+    color: 'white'
   },
   timestamp: {
     fontSize: 12,
-    color: '#888',
+    color: '#f0f0f0',
     marginTop: 5,
   },
   inputContainer: {
@@ -143,7 +145,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   sendButton: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#9E110D',
     padding: 10,
     borderRadius: 5,
   },

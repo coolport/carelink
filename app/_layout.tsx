@@ -40,7 +40,6 @@ export default function RootLayout() {
     <MessagesProvider>
 
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <></>
         <ChatProvider>
 
           <Stack>
@@ -52,7 +51,7 @@ export default function RootLayout() {
             <Stack.Screen name="emailSent" options={{ headerShown: false }} />
             <Stack.Screen name="+not-found" />
           </Stack>
-          <StatusBar style="auto" />
+          <StatusBar hidden={true} />
         </ChatProvider>
       </ThemeProvider>
     </MessagesProvider >
